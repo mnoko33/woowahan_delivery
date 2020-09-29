@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import RestaurantCard from '../../components/RestaurantCard';
 import { connect } from 'react-redux';
 import { getRestaurantList } from '../../modules/restaurant'
+import { withRouter } from 'react-router-dom';
 const Fragment = styled.div`
   width: 100%;
   min-height: calc(100vh - 175px);
@@ -22,17 +23,24 @@ const Wrapper = styled.div`
   }
 `;
 
-function RestaurantList({ categoryId, restaurantList, getRestaurantList }) {
+function RestaurantList(props) {
+  const { history, categoryId, restaurantList, getRestaurantList } = props;
   useEffect(() => {
     getRestaurantList(categoryId);
   }, [categoryId])
+
+  const handleCardClick = (id) => {
+    history.push(`/restaurants/${id}`)
+  }
+
   return (
     <Fragment>
       <Wrapper>
         {restaurantList.map((restaurant, idx) => 
           <RestaurantCard 
             key={idx} 
-            restaurant={restaurant} 
+            restaurant={restaurant}
+            onClick={(id) => handleCardClick(id)}
           />  
         )}
       </Wrapper>
@@ -45,4 +53,4 @@ export default connect(
     restaurantList: state.restaurantReducer.restaurantList
   }),
   { getRestaurantList }
-)(RestaurantList);
+)(withRouter(RestaurantList));
