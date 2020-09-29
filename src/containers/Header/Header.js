@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import AddressInput from './AddressInput';
-import AuthBtn from './AuthBtn';
+import AddressInput from '../../components/AddressInput';
+import AuthBtn from '../../components/AuthBtn';
 
 const StyledHeader = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 70px;
   padding: 10px;
   color: #FFF;

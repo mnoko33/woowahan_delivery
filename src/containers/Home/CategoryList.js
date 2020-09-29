@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { set } from '../modules/category';
 import styled from 'styled-components';
-import api from '../api';
 
 const CategoryListWrapper = styled.div`
   width: 80vw;
@@ -39,17 +37,10 @@ const CategoryName = styled.span`
   left: 10px;
 `;
 
-function CategoryList({ history, categoryList, set }) {
+function CategoryList({ history, categoryList }) {
   const handleClickCategoryCard = (id) => {
     history.push(`/restaurants/categories/${id}`);
   }
-
-  useEffect(() => {
-    const fetchCategoryList = async () => {
-      set(await api.getCategoryList());
-    }
-    fetchCategoryList();
-  })
 
   return (
     <CategoryListWrapper>
@@ -72,5 +63,5 @@ export default connect(
   state => ({
     categoryList: state.categoryReducer.categoryList
   }),
-  { set }
+  null,
 )(CategoryList);
