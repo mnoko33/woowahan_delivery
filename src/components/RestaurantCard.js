@@ -4,9 +4,11 @@ import { commaizeNumber } from '../utils/commaizeNumber';
 import { convertDeliveryTimeToStr, convertDeliveryTipToStr } from '../utils/deliveryInfo';
 import styled from 'styled-components';
 
-const Wrapper = styled.table`
-  padding: 10px;
-  height: 120px;
+const Wrapper = styled.div`
+  margin: auto;
+  padding: 9px;
+  max-width: 500px;
+  height: 130px;
   display: flex;
   background-color: #FFF;
   border: 1px solid #d9d9d9;
@@ -16,50 +18,43 @@ const Wrapper = styled.table`
 `;
 
 const Img = styled.img`
-  border-radius: 30px;
-  height: 100px;
-  width: 100px;
+  width: 110px;
+  height: 110px;
+  border-radius: 20px;
 `;
 
-// const Content = styled.div`
-//   width: calc(100% - 100px);
-//   margin: 5px 10px;
-// `;
+const Info = styled.div`
+  font-size: 15px;
+  width: calc(100% - 120px);
+  margin-left: 10px;
+`;
 
-const Name = styled.span`
+const InfoRow = styled.div`
   display: inline-block;
   width: 100%;
+  height: 25px;
   overflow: hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
-const UserRating = styled.span`
-  font-size: 13px;
-  display: inline-block;
-  width: 40px;
+const Star = styled.span`
+  color: #F1C119;
+  margin-right: 2px;
+  margin-top: 2px;
 `;
 
-const Subscription = styled.span`
-  font-size: 13px;
-  display: inline-block;
-  width: calc(100% - 60px);
-  overflow: hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+const Description = styled.span`
+  margin-left: 4px;
   color: grey;
 `;
 
-const DeliveryInfo = styled.span`
-font-size: 12px;
-  display: inline-block;
+const Clock = styled(AiOutlineClockCircle)`
+  margin-top: 3px;
+  margin-right: 2px;
 `;
 
-const DeliveryTip = styled.div`
-  font-size: 12px;
-`;
-
-function RestaurantCard({ restaurant }) {
+function RestaurantCard({ restaurant, onClick }) {
   const imgRef = useRef();
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -69,56 +64,39 @@ function RestaurantCard({ restaurant }) {
       }
     })
   });
+
   useEffect(() => {
     observer.observe(imgRef.current);
     return () => {
       observer.disconnect();
     }
   })
+
   return (
-    <Wrapper>
-      <tbody>
-        <tr>
-          <td>
-            <Img data-src={restaurant.img} ref={imgRef} alt={restaurant.name} />
-          </td>
-          <td>
-            <Name>{restaurant.name}</Name>
-            {/* <UserRating> */}
-              <span style={{ color: '#F1C119' }}>★ </span>
-              <span>{restaurant.userRating}</span>
-            {/* </UserRating> */}
-          </td>
-        </tr>
-      </tbody>
+    <Wrapper onClick={() => onClick(restaurant.id)}>
+      <Img data-src={restaurant.img} ref={imgRef} alt={restaurant.name} />
+      <Info>
+        <InfoRow>
+          <h3>{restaurant.name}</h3>
+        </InfoRow>
+        <InfoRow>
+          <Star>★</Star>
+          <span>{restaurant.userRating} |</span>
+          <Description>{restaurant.description}</Description>
+        </InfoRow>
+        <InfoRow>
+          <Clock />
+          <span>
+            {`${convertDeliveryTimeToStr(restaurant.deliveryTime)}분 | ${commaizeNumber(restaurant.minimumOrder)}원`}
+          </span>
+        </InfoRow>
+        <InfoRow>
+          <span>
+            {`배달팁 ${convertDeliveryTipToStr(restaurant.deliveryTip)}`}
+          </span>
+        </InfoRow>
+      </Info>
     </Wrapper>
-    // <div>
-    //   <img data-src={restaurant.img} ref={imgRef} />
-    // </div>
-    // <Wrapper>
-    //   <Img data-src={restaurant.img} ref={imgRef} />
-    //   <Content>
-    //     <Name>{restaurant.name}</Name>
-    //     <div>
-    //       <UserRating>
-    //         <span style={{ color: '#F1C119' }}>★ </span>
-    //         <span>{restaurant.userRating}</span>
-    //       </UserRating>
-    //       <Subscription>{restaurant.subscription}</Subscription>
-    //     </div>
-    //     <React.Fragment>
-    //       <AiOutlineClockCircle />
-    //       <DeliveryInfo>
-    //         {`${convertDeliveryTimeToStr(restaurant.deliveryTime)}분, ${commaizeNumber(restaurant.minimumOrder)}원`}
-    //       </DeliveryInfo>
-    //     </React.Fragment>
-    //     <React.Fragment>
-    //       <DeliveryTip>
-    //         {`배달팁 ${convertDeliveryTipToStr(restaurant.deliveryTip)}`}
-    //       </DeliveryTip>
-    //     </React.Fragment>
-    //   </Content>
-    // </Wrapper>
   )
 }
 
