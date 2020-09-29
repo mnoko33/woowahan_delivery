@@ -1,20 +1,20 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './pages/Home';
-import Category from './pages/Category';
-import Detail from './pages/Detail';
-import NotFound from './pages/NotFound';
+import Header from './containers/Header/Header';
+import HomePage from './pages/HomePage';
+import RestaurantListPage from './pages/RestaurantListPage';
+import DetailPage from './pages/DetailPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Switch>
-        <Route path="/" exact component={Home}/>
-        <Route path="/restaurants/categories/:categoryId" component={Category}/>
-        <Route path="/restaurants/:storeId" component={Detail}/>
-        <Route component={NotFound} />
+        <Route path="/" exact component={HomePage}/>
+        <Route path="/restaurants/categories/:categoryId" component={RestaurantListPage}/>
+        <Route path="/restaurants/:storeId" component={DetailPage}/>
+        <Route component={NotFoundPage} />
       </Switch>
     </div>
   );

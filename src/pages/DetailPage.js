@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Detail() {
+function DetailPage() {
   return (
     <div>디테일</div>
   )
 }
 
-export default Detail;
+export default DetailPage;
