@@ -310,6 +310,23 @@ const dummyRestaurantList = [
   },
 ]
 
+const dummyRestaurantInfo = {
+  id: 1,
+  name: '처갓집양념치킨 미사강변점',
+  userRating: 4.4,
+  description: '',
+  deliveryTime: [54, 64],
+  deliveryTip: [4000],
+  minimumOrder: 9000,
+  phoneNumber: '010-1234-5678',
+  isPicked: true,
+  pickCnt: 148,
+  recentlyReviewCnt: 331,
+  recentlyOwnerCommentCnt: 185,
+  orderType: ['delivery', 'pack/visit'],
+  coupon: [],
+}
+
 const api = {
   getAdInfos: async () => {
     return dummyAdInfos;
@@ -319,6 +336,17 @@ const api = {
   },
   getRestaurantList: async (categoryId) => {
     return dummyRestaurantList;
+  },
+  getRestaurantInfo: async (restaurantId) => {
+    return dummyRestaurantInfo;
+  },
+  updateRestaurantInfo: async ({ id, data }) => {
+    const { isPicked } = data;
+    const x = { ...dummyRestaurantInfo, ...data }
+    if (!isPicked) {
+      x['pickCnt'] = x['pickCnt'] - 1;
+    }
+    return x;
   }
 }
 
