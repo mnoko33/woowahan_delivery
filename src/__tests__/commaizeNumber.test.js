@@ -1,5 +1,5 @@
 import { commaizeNumber } from '../utils/commaizeNumber';
-// const commaizeNumber = require('../utils/commaizeNumber');
+
 describe("숫자에 세자리마다 ,를 찍어주기", () => {
   test('999 이하의 숫자는 아무런 작업을 취하지 않는다.', () => {
     expect(commaizeNumber(0)).toBe('0')
