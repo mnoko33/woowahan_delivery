@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import AddressInput from '../../components/AddressInput';
 import AuthBtn from '../../components/AuthBtn';
@@ -9,7 +9,7 @@ const StyledHeader = styled.div`
   height: 70px;
   padding: 10px;
   color: #FFF;
-  background-color: #2Ac1BC;
+  background-color: #2AC1BC;
   display: flex;
   justify-content: space-between;
 `;
@@ -26,8 +26,8 @@ const Logo = styled.div`
   }
 `
 
-function Header({ history }) {
-
+function Header() {
+  const history = useHistory();
   const handleLogoClick = () => {
     history.push('/');
   }
@@ -41,4 +41,4 @@ function Header({ history }) {
   )
 }
 
-export default withRouter(Header);
+export default Header;

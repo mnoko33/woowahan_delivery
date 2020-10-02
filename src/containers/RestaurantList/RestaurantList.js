@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import RestaurantCard from '../../components/RestaurantCard';
 import { connect } from 'react-redux';
 import { getRestaurantList } from '../../modules/restaurant'
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 const Fragment = styled.div`
   width: 100%;
   min-height: calc(100vh - 175px);
@@ -24,7 +24,8 @@ const Wrapper = styled.div`
 `;
 
 function RestaurantList(props) {
-  const { history, categoryId, restaurantList, getRestaurantList } = props;
+  const { categoryId, restaurantList, getRestaurantList } = props;
+  const history = useHistory();
   useEffect(() => {
     getRestaurantList(categoryId);
   }, [categoryId])
@@ -53,4 +54,4 @@ export default connect(
     restaurantList: state.restaurantReducer.restaurantList
   }),
   { getRestaurantList }
-)(withRouter(RestaurantList));
+)(RestaurantList);
