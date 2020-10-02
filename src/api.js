@@ -313,18 +313,21 @@ const dummyRestaurantList = [
 const dummyRestaurantInfo = {
   id: 1,
   name: '처갓집양념치킨 미사강변점',
+  address: '경기도 하남시 망월동 849-3 1층 (망월동)',
   userRating: 4.4,
   description: '',
   deliveryTime: [54, 64],
-  deliveryTip: [4000],
+  deliveryTip: [2000, 4000],
+  cookingTime: [15, 20],
   minimumOrder: 9000,
   phoneNumber: '010-1234-5678',
   isPicked: true,
   pickCnt: 148,
   recentlyReviewCnt: 331,
   recentlyOwnerCommentCnt: 185,
-  orderType: ['delivery', 'pack/visit'],
-  coupon: [],
+  paymentType: ['바로결제', '만나서결제'],
+  orderType: ['배달', '포장', '방문'],
+  coupon: [1500, 2000, 3000],
 }
 
 const api = {
