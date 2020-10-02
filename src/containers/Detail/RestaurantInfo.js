@@ -8,9 +8,7 @@ import { updateRestaurantInfo } from '../../modules/restaurant';
 import { setClipboard } from '../../utils/setClipboard';
 
 const Wrapper = styled.div`
-  max-width: 650px;
   height: 300px;
-  margin: auto;
   padding: 50px;
   border-radius: 10px;
   font-size: 16px;
@@ -73,7 +71,7 @@ function RestaurantInfo(props) {
         <Button 
           options={{ 
             title: '전화', 
-            icon: <HiOutlinePhone />, 
+            preIcon: <HiOutlinePhone />, 
             style: buttonStyle
           }}
           onClick={handlePhoneButtonClick} 
@@ -82,7 +80,7 @@ function RestaurantInfo(props) {
         <Button 
           options={{ 
             title: `찜 ${restaurantInfo.pickCnt}`,
-            icon: restaurantInfo.isPicked ? <HiHeart /> : <HiOutlineHeart />,
+            preIcon: restaurantInfo.isPicked ? <HiHeart /> : <HiOutlineHeart />,
             style: buttonStyle
           }}
           onClick={handlePickButtonClick} />
@@ -90,7 +88,7 @@ function RestaurantInfo(props) {
         <Button 
           options={{ 
             title: '공유',
-            icon: <HiOutlineShare />,
+            preIcon: <HiOutlineShare />,
             style: buttonStyle
           }}
           onClick={handleShareButtonClick} 
