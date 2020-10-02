@@ -35,7 +35,6 @@ export const getRestaurantInfo = (restaurantId) => dispatch => {
 export const updateRestaurantInfo = ({ id, data }) => dispatch => {
   return api.updateRestaurantInfo({ id, data })
     .then(response => {
-      console.log(response);
       dispatch({
         type: SET_RESTAURANT_INFO,
         payload: response,
