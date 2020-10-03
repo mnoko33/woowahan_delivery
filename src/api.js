@@ -330,6 +330,113 @@ const dummyRestaurantInfo = {
   coupon: [1500, 2000, 3000],
 }
 
+const dummyMenuList = [
+  {
+    category: '한마리 치킨',
+    description: '치킨+무+콜라245ml+쿠폰',
+    items: [
+      {
+        id: 1,
+        name: '후라이드치킨',
+        description: '치킨+무+콜라245ml+쿠폰',
+        price: [
+          { '뼈': 19000 },
+          { '순살': 20000 }
+        ]
+      },
+      {
+        id: 2,
+        name: '허니올리고당양념치킨',
+        description: '치킨+무+콜라245ml+쿠폰',
+        price: [
+          { '뼈': 18000 },
+          { '순살': 19000 }
+        ]
+      },
+      {
+        id: 3,
+        name: '반반치킨',
+        description: '처갓집양념치킨 최고 인기 메뉴! 양념과 후라이드를 한번에!',
+        price: [
+          { '2가지 선택': 16000 },
+        ]
+      },
+      {
+        id: 4,
+        name: '슈프림양념치킨',
+        description: '치킨+무+콜라245ml+쿠폰 / 처갓집 베스트셀러!!!',
+        price: [
+          { '뼈': 19000 },
+          { '순살': 20000 }
+        ]
+      },
+    ],
+  },
+  {
+    category: '신메뉴',
+    description: '처갓집 신메뉴',
+    items: [
+      {
+        id: 5,
+        name: '트러플슈프림양념치킨',
+        description: '치킨+무+콜라245ml+쿠폰',
+        price: [
+          { '뼈': 19000 },
+          { '순살': 20000 }
+        ]
+      },
+      {
+        id: 6,
+        name: '100%청양산 고추치킨',
+        description: '',
+        price: 19000,
+      }
+    ],
+  },
+  {
+    category: '사이드메뉴',
+    description: '',
+    items: [
+      {
+        id: 7,
+        name: '떡 사리 추가',
+        description: '순살치킨에 추가하면 최고의 조합!',
+        price: 2000,
+      },
+      {
+        id: 8,
+        name: '슈프림떡',
+        description: '',
+        price: 2000,
+      },
+      {
+        id: 9,
+        name: '치즈볼 6개',
+        description: '',
+        price: 5000,
+      },
+      {
+        id: 10,
+        name: '피자볼 6개',
+        description: '',
+        price: 5000,
+      },
+      {
+        id: 11,
+        name: '고구마볼 6개',
+        description: '',
+        price: 5000,
+      },
+      {
+        id: 12,
+        name: '크림치즈볼 6개',
+        description: '',
+        price: 5000,
+      },
+    ],
+  },
+];
+
 const api = {
   getAdInfos: async () => {
     return dummyAdInfos;
@@ -337,8 +444,11 @@ const api = {
   getCategoryList: async () => {
     return dummyCategoryList;
   },
-  getRestaurantList: async (categoryId) => {
-    return dummyRestaurantList;
+  getRestaurantList: async (categoryId, page) => {
+    return dummyRestaurantList
+      .map(info => {
+        return { ...info, id: info.id + 21 * (page - 1) }
+      })
   },
   getRestaurantInfo: async (restaurantId) => {
     return dummyRestaurantInfo;
@@ -350,6 +460,9 @@ const api = {
       x['pickCnt'] = x['pickCnt'] - 1;
     }
     return x;
+  },
+  getMenuList: async (restaurantId) => {
+    return dummyMenuList;
   }
 }
 
