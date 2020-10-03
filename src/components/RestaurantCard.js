@@ -1,8 +1,69 @@
 import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getRestaurantList } from '../modules/restaurant';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { commaizeNumber } from '../utils/commaizeNumber';
 import { convertDeliveryTimeToStr, convertDeliveryTipToStr } from '../utils/deliveryInfo';
 import styled from 'styled-components';
+
+function RestaurantCard({ restaurant, restaurantList, nextPage, getRestaurantList, onClick }) {
+  const { categoryId } = useParams();
+  const imgRef = useRef();
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        observer.unobserve(entry.target);
+        entry.target.src = entry.target.dataset.src;
+        if (restaurantList[restaurantList.length-1].id === restaurant.id) {
+          getRestaurantList(categoryId, nextPage)
+        }
+      }
+    })
+  });
+
+  useEffect(() => {
+    observer.observe(imgRef.current);
+    return () => {
+      observer.disconnect();
+    }
+  })
+
+  return (
+    <Wrapper onClick={() => onClick(restaurant.id)}>
+      <Img data-src={restaurant.img} ref={imgRef} alt={restaurant.name} />
+      <Info>
+        <InfoRow>
+          <h3>{restaurant.name}</h3>
+        </InfoRow>
+        <InfoRow>
+          <Star>★</Star>
+          <span>{restaurant.userRating} |</span>
+          <Description>{restaurant.description}</Description>
+        </InfoRow>
+        <InfoRow>
+          <Clock />
+          <span>
+            {`${convertDeliveryTimeToStr(restaurant.deliveryTime)}분 | ${commaizeNumber(restaurant.minimumOrder)}원`}
+          </span>
+        </InfoRow>
+        <InfoRow>
+          <span>
+            {`배달팁 ${convertDeliveryTipToStr(restaurant.deliveryTip)}`}
+          </span>
+        </InfoRow>
+      </Info>
+    </Wrapper>
+  )
+}
+
+export default connect(
+  state => ({
+    restaurantList: state.restaurantReducer.restaurantList,
+    nextPage: state.restaurantReducer.nextPage,
+  }),
+  { getRestaurantList }
+)(RestaurantCard);
 
 const Wrapper = styled.div`
   margin: auto;
@@ -53,51 +114,3 @@ const Clock = styled(AiOutlineClockCircle)`
   margin-top: 3px;
   margin-right: 2px;
 `;
-
-function RestaurantCard({ restaurant, onClick }) {
-  const imgRef = useRef();
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        observer.unobserve(entry.target);
-        entry.target.src = entry.target.dataset.src;
-      }
-    })
-  });
-
-  useEffect(() => {
-    observer.observe(imgRef.current);
-    return () => {
-      observer.disconnect();
-    }
-  })
-
-  return (
-    <Wrapper onClick={() => onClick(restaurant.id)}>
-      <Img data-src={restaurant.img} ref={imgRef} alt={restaurant.name} />
-      <Info>
-        <InfoRow>
-          <h3>{restaurant.name}</h3>
-        </InfoRow>
-        <InfoRow>
-          <Star>★</Star>
-          <span>{restaurant.userRating} |</span>
-          <Description>{restaurant.description}</Description>
-        </InfoRow>
-        <InfoRow>
-          <Clock />
-          <span>
-            {`${convertDeliveryTimeToStr(restaurant.deliveryTime)}분 | ${commaizeNumber(restaurant.minimumOrder)}원`}
-          </span>
-        </InfoRow>
-        <InfoRow>
-          <span>
-            {`배달팁 ${convertDeliveryTipToStr(restaurant.deliveryTip)}`}
-          </span>
-        </InfoRow>
-      </Info>
-    </Wrapper>
-  )
-}
-
-export default RestaurantCard;
