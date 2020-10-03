@@ -1,9 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getMenuList } from '../../modules/restaurant';
+import MenuDrawer from '../../components/MenuDrawer';
 
-function MenuTab() {
+function MenuTab({ menuList, getMenuList, restaurantInfo }) {
+  React.useEffect(() => {
+    getMenuList(restaurantInfo.id);
+  })
   return (
-    <div>MenuTab</div>
+    <>
+      { menuList.map((menu, index) => {
+        return <MenuDrawer key={index} menu={menu} />
+      })}
+    </>
   )
 }
 
-export default MenuTab;
+export default connect(
+  state => ({
+    menuList: state.restaurantReducer.menuList,
+    restaurantInfo: state.restaurantReducer.restaurantInfo,
+  }),
+  { getMenuList }
+)(MenuTab);
