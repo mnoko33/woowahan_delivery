@@ -24,10 +24,10 @@ const Wrapper = styled.div`
 `;
 
 function RestaurantList(props) {
-  const { categoryId, restaurantList, getRestaurantList } = props;
+  const { categoryId, restaurantList, getRestaurantList, nextPage } = props;
   const history = useHistory();
   useEffect(() => {
-    getRestaurantList(categoryId);
+    getRestaurantList(categoryId, nextPage);
   }, [categoryId])
 
   const handleCardClick = (id) => {
@@ -51,7 +51,8 @@ function RestaurantList(props) {
 
 export default connect(
   state => ({
-    restaurantList: state.restaurantReducer.restaurantList
+    restaurantList: state.restaurantReducer.restaurantList,
+    nextPage: state.restaurantReducer.nextPage,
   }),
   { getRestaurantList }
 )(RestaurantList);

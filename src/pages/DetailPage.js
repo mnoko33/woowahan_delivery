@@ -47,7 +47,8 @@ const Tab = styled(NavLink)`
 `;
 
 const TabBody = styled.div`
-  padding: 30px;
+  max-width: 650px;
+  margin: 20px auto;
 `;
 
 function DetailPage({ match, restaurantInfo, getRestaurantInfo, setRestaurantInfo }) {
