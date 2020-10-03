@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import CategoryChip from '../../components/CategoryChip';
+import { setCategoryId } from '../../modules/category';
+import { initNextPage } from '../../modules/restaurant';
 
 const CategorySelectorWrapper = styled.div`
   margin-top: 15px;
@@ -11,11 +13,19 @@ const CategorySelectorWrapper = styled.div`
   border-bottom: 1px solid gray;
 `;
 
-function CategorySelector({ categoryList }) {
+function CategorySelector({ categoryList, setCategoryId, initNextPage }) {
+  const handleCategoryChipClick = (categoryId) => {
+    initNextPage();
+    setCategoryId(categoryId)
+  }
   return (
     <CategorySelectorWrapper>
       {categoryList.map(category=>
-        <CategoryChip category={category} key={category.id} />
+        <CategoryChip 
+          onClick={handleCategoryChipClick} 
+          category={category} 
+          key={category.id} 
+        />
       )}
     </CategorySelectorWrapper>
   )
@@ -25,5 +35,5 @@ export default connect(
   state => ({
     categoryList: state.categoryReducer.categoryList,
   }),
-  null,
+  { setCategoryId, initNextPage },
 )(CategorySelector);
