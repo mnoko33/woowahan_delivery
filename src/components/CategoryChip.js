@@ -13,9 +13,10 @@ const CategoryChipWrapper = styled(NavLink)`
   }
 `;
 
-function CategoryChip({ category }) {
+function CategoryChip({ category, onClick }) {
   return (
     <CategoryChipWrapper
+      onClick={() => onClick(category.id)}
       activeStyle={{ color: 'black', borderBottom: '5px solid black' }}
       to={`/restaurants/categories/${category.id}`}
     >

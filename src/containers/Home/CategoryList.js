@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setCategoryId } from '../../modules/category';
 import styled from 'styled-components';
 
 const CategoryListWrapper = styled.div`
@@ -37,9 +38,10 @@ const CategoryName = styled.span`
   left: 10px;
 `;
 
-function CategoryList({ history, categoryList }) {
+function CategoryList({ history, categoryList, setCategoryId }) {
   const handleClickCategoryCard = (id) => {
     history.push(`/restaurants/categories/${id}`);
+    setCategoryId(id);
   }
 
   return (
@@ -63,5 +65,5 @@ export default connect(
   state => ({
     categoryList: state.categoryReducer.categoryList
   }),
-  null,
+  { setCategoryId },
 )(CategoryList);
