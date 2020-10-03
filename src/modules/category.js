@@ -2,15 +2,18 @@ import { createAction, handleActions } from "redux-actions";
 import api from '../api';
 
 // action type
-const SET = 'category/SET';
+const SET_CATEGORY_LIST = 'category/SET_CATEGORY_LIST';
+const SET_CATEGORY_ID = 'category/SET_CATEGORY_ID';
+
 
 // action create func
-export const set = createAction(SET);
+export const setCategoryId = createAction(SET_CATEGORY_ID);
+
 export const getCategoryList = () => dispatch => {
   return api.getCategoryList()
     .then(response => {
       dispatch({
-        type: SET,
+        type: SET_CATEGORY_LIST,
         payload: response
       })
     })
@@ -21,15 +24,20 @@ export const getCategoryList = () => dispatch => {
 
 // reducer
 const initialState = {
+  categoryId: null,
   categoryList: [],
 }
 
 const categoryReducer = handleActions(
   {
-    [SET]: (state, { payload: categoryList }) => ({
+    [SET_CATEGORY_LIST]: (state, { payload: categoryList }) => ({
       ...state,
       categoryList,
     }),
+    [SET_CATEGORY_ID]: (state, { payload: categoryId }) => ({
+      ...state,
+      categoryId,
+    })
   },
   initialState
 )
