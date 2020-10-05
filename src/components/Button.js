@@ -6,6 +6,9 @@ const CustomButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  &:disabled {
+    color: #ECECEC;
+  }
   ${(props) => 
     props.style && css`
       ${props.style}
@@ -14,9 +17,10 @@ const CustomButton = styled.button`
 `;
 
 function Button({ options, onClick }) {
-  const { preIcon, postIcon, title, style } = options;
+  if (!options) return null;
+  const { preIcon, postIcon, title, style, disabled } = options;
   return (
-    <CustomButton style={style} onClick={onClick}>
+    <CustomButton style={style} onClick={onClick} disabled={disabled}>
       { preIcon } { title } { postIcon }
     </CustomButton>
   )
