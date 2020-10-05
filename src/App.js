@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import RestaurantListPage from './pages/RestaurantListPage';
 import DetailPage from './pages/DetailPage';
 import NotFoundPage from './pages/NotFoundPage';
+import Cart from './containers/Cart/Cart';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/restaurants/:restaurantId" component={DetailPage}/>
         <Route component={NotFoundPage} />
       </Switch>
+      <Cart />
     </div>
   );
 }
