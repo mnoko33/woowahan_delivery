@@ -29,7 +29,7 @@ function MenuModal({ selectedItemId, setSelectedItemId, addItem }) {
     <Modal 
       visible={!!selectedItemId}
       title={menuInfo && menuInfo.name}
-      selectItem={setSelectedItemId}
+      closeModal={() => setSelectedItemId(null)}
       body={
         <BodyWrapper>
           <MenuImg>

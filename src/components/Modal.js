@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import Button from './Button';
 import { GrFormClose } from 'react-icons/gr';
 
-function Modal({ visible, options, title, selectItem, body, footer }) {
+function Modal({ visible, options, title, closeModal, body, footer }) {
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -13,14 +13,14 @@ function Modal({ visible, options, title, selectItem, body, footer }) {
 
   const handleKeyDown = e => {
     if (e.key === 'Escape') {
-      selectItem(null);
+      closeModal();
     }
   }
 
   const handleClick = e => {
     e.stopPropagation();
     if (e.target === e.currentTarget) {
-      selectItem(null);
+      closeModal();
     }
   }
 
@@ -43,7 +43,7 @@ function Modal({ visible, options, title, selectItem, body, footer }) {
         <Wrapper style={modalStyle}>
           <Button 
             options={closeBtnOptions} 
-            onClick={() => selectItem(null)} 
+            onClick={closeModal} 
           />
           <Header>
             <span>{title}</span>
