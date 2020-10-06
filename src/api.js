@@ -441,7 +441,7 @@ const dummyMenuInfo = {
   id: 1,
   name: '허니올리고당양념치킨',
   price: '19000',
-  img: 'https://lh3.googleusercontent.com/proxy/Gyg-jndt4PUOc4pnpS33qX7Ghvc5s2bNOTudO_aa1SWPiLNgr0CVfyBXDwz98wqePjhb09mUG8EWc2A-wKT-jooVjCtOa_gQPI70ptZiL8SV8etsNLn64-GBwfzGgyEl3JTnFRO74O1YmREDSP3M3_yj'
+  img: 'https://miro.medium.com/max/2560/1*2kHAAe4MpPTXMpeIeULegg.jpeg'
 }
 
 const api = {
