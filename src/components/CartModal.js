@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from './Modal';
 import styled from 'styled-components';
 import ModalFooter from './ModalFooter';
@@ -33,6 +33,11 @@ function ItemCard({ item, updateItem, removeItem }) {
 }
 
 function CartModal({ visible, setVisible, items, removeItem, updateItem }) {
+  useEffect(() => {
+    return () => {
+      setVisible(false);
+    }
+  })
   const closeModal = () => setVisible(false);
   return (
     <Modal 
