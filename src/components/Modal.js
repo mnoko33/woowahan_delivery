@@ -103,5 +103,6 @@ const Body = styled.div`
 
 const Footer = styled.div`
   padding: 20px;
+  padding-top: 0px;
   height: 70px;
 `;
