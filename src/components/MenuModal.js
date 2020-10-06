@@ -7,6 +7,7 @@ import ModalFooter from './ModalFooter';
 import { addItem } from '../modules/cart';
 import api from '../api';
 import { commaizeNumber } from '../utils/commaizeNumber';
+import CounterController from './CounterController';
 
 function MenuModal({ selectedItemId, setSelectedItemId, addItem }) {
   const [cnt, setCnt] = useState(1);
@@ -44,20 +45,11 @@ function MenuModal({ selectedItemId, setSelectedItemId, addItem }) {
           </FlexWrapper>
           <FlexWrapper>
             <span style={{ paddingTop: '10px' }}>수량</span>
-            <CountController>
-              <Button 
-                options={{ 
-                  title: '-', 
-                  disabled: cnt === 1 
-                }}
-                onClick={() => setCnt(cnt - 1)}
-              />
-                <span>{cnt}</span>
-              <Button 
-                options={{ title: '+' }}
-                onClick={() => setCnt(cnt + 1)}
-              />
-            </CountController>
+            <CounterController 
+              count={cnt}
+              setCount={(newCnt) => setCnt(newCnt)}
+              min={1}
+            />
           </FlexWrapper>
         </BodyWrapper>
       }
@@ -90,15 +82,6 @@ const MenuImg = styled.div`
 
 const FlexWrapper = styled.div`
   margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CountController = styled.div`
-  width: 150px;
-  border: 1px solid #ECECEC;
-  border-radius: 15px;
-  padding: 10px;
   display: flex;
   justify-content: space-between;
 `;
