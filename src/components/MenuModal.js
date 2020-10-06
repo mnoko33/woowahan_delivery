@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Button from './Button';
 import Modal from './Modal';
+import ModalFooter from './ModalFooter';
 import { addItem } from '../modules/cart';
 import api from '../api';
 import { commaizeNumber } from '../utils/commaizeNumber';
@@ -18,11 +19,13 @@ function MenuModal({ selectedItemId, setSelectedItemId, addItem }) {
     fetchMenuInfo();
   }, [])
 
-  const defaultOptions = {
-    width: '100%', 
-    height: '100%', 
-    borderRadius: '5px', 
-    textAlign: 'center', 
+  const handleClickCancelBtn = () => {
+    setSelectedItemId(null);
+  }
+
+  const handleClickConfirmBtn = () => {
+    addItem({ id: selectedItemId, cnt });
+    setSelectedItemId(null)
   }
 
   return (
@@ -59,32 +62,12 @@ function MenuModal({ selectedItemId, setSelectedItemId, addItem }) {
         </BodyWrapper>
       }
       footer={
-        <FooterBtnWrapper>
-          <Button 
-            options={{ 
-              style: { 
-                ...defaultOptions,
-                backgroundColor: '#DEDEDE' 
-              },
-              title: '최소하기'
-            }} 
-            onClick={() => setSelectedItemId(null)}
-          />
-          <Button 
-            options={{ 
-              style: { 
-                ...defaultOptions,
-                backgroundColor: '#2AC1BC', 
-                color: '#FFF' 
-              },
-              title: `${cnt}개 담기`,
-            }}
-            onClick={() => {
-              addItem({ id: selectedItemId, cnt });
-              setSelectedItemId(null)
-            }}
-          />
-        </FooterBtnWrapper>
+        <ModalFooter 
+          handleClickCancelBtn={handleClickCancelBtn}
+          handleClickConfirmBtn={handleClickConfirmBtn}
+          cancelBtnTitle='취소하기'
+          confirmBtnTitle={`${cnt}개 담기`}
+        />
       }
     />
   )
@@ -118,12 +101,4 @@ const CountController = styled.div`
   padding: 10px;
   display: flex;
   justify-content: space-between;
-`;
-
-const FooterBtnWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  width: 100%;
-  height: 100%;
 `;
