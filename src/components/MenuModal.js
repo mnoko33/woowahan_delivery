@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Button from './Button';
 import Modal from './Modal';
 import ModalFooter from './ModalFooter';
 import { addItem } from '../modules/cart';
-import api from '../api';
 import { commaizeNumber } from '../utils/commaizeNumber';
 import CounterController from './CounterController';
 
 function MenuModal({ selectedItem, setSelectedItem, addItem }) {
   const [cnt, setCnt] = useState(1);
-  const [menuInfo, setMenuInfo] = useState(null);
-  // useEffect(() => {
-  //   const fetchMenuInfo = async () => {
-  //     setMenuInfo(await api.getMenuInfo());
-  //   }
-  //   fetchMenuInfo();
-  // }, [])
 
   const handleClickCancelBtn = () => {
     setSelectedItem(null);
