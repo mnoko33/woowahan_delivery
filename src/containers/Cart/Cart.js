@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 import { RiShoppingBasketLine } from 'react-icons/ri';
 import Counter from './Counter';
+import CartModal from '../../components/CartModal';
 
 function Cart({ items }) {
+  const [isCartModalVisible, setIsCartModalVisible] = useState(false);
+  const handleCartBtnClick = () => {
+    setIsCartModalVisible(true);
+  }
   const options = {
     style: {
       width: '60px',
@@ -26,7 +31,8 @@ function Cart({ items }) {
   
   if (items.length > 0 && isCartShowed) {
     return (
-      <Wrapper>
+      <Wrapper onClick={handleCartBtnClick}>
+        { isCartModalVisible && <CartModal visible={isCartModalVisible} setVisible={setIsCartModalVisible} /> }
         <Button options={options} />
         <Counter cnt={items.length} />
       </Wrapper>
