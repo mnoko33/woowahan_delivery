@@ -469,7 +469,12 @@ const api = {
     return x;
   },
   getMenuList: async (restaurantId) => {
-    return dummyMenuList;
+    return dummyMenuList.map(menu => {
+      return {
+        ...menu,
+        items: menu.items.map(item => ({ ...item, img: 'https://miro.medium.com/max/2560/1*2kHAAe4MpPTXMpeIeULegg.jpeg' }))
+      }
+    })
   },
   getMenuInfo: async (restaurantId, menuId) => {
     return dummyMenuInfo;
