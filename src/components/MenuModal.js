@@ -9,39 +9,38 @@ import api from '../api';
 import { commaizeNumber } from '../utils/commaizeNumber';
 import CounterController from './CounterController';
 
-function MenuModal({ selectedItemId, setSelectedItemId, addItem }) {
+function MenuModal({ selectedItem, setSelectedItem, addItem }) {
   const [cnt, setCnt] = useState(1);
   const [menuInfo, setMenuInfo] = useState(null);
-
-  useEffect(() => {
-    const fetchMenuInfo = async () => {
-      setMenuInfo(await api.getMenuInfo());
-    }
-    fetchMenuInfo();
-  }, [])
+  // useEffect(() => {
+  //   const fetchMenuInfo = async () => {
+  //     setMenuInfo(await api.getMenuInfo());
+  //   }
+  //   fetchMenuInfo();
+  // }, [])
 
   const handleClickCancelBtn = () => {
-    setSelectedItemId(null);
+    setSelectedItem(null);
   }
 
   const handleClickConfirmBtn = () => {
-    addItem({ id: selectedItemId, cnt });
-    setSelectedItemId(null)
+    addItem({ ...selectedItem, cnt });
+    setSelectedItem(null)
   }
 
   return (
     <Modal 
-      visible={!!selectedItemId}
-      title={menuInfo && menuInfo.name}
-      closeModal={() => setSelectedItemId(null)}
+      visible={!!selectedItem}
+      title={selectedItem && selectedItem.name}
+      closeModal={() => setSelectedItem(null)}
       body={
         <BodyWrapper>
           <MenuImg>
-            <img height="100%" alt="" src={menuInfo && menuInfo.img} />
+            <img height="100%" alt="" src={selectedItem && selectedItem.img} />
           </MenuImg>
           <FlexWrapper>
             <span>기본</span>
-            <span>{menuInfo && commaizeNumber(menuInfo.price)}</span>
+            <span>{selectedItem && commaizeNumber(selectedItem.price)}</span>
           </FlexWrapper>
           <FlexWrapper>
             <span style={{ paddingTop: '10px' }}>수량</span>

@@ -10,9 +10,9 @@ function MenuDrawer({ menu, onClickItem, addItem }) {
   const handleDrawerClick = () => {
     setIsOpen(isOpen => !isOpen)
   }
-  const handleItemClick = (e, itemId) => {
+  const handleItemClick = (e, item) => {
     e.stopPropagation();
-    onClickItem(() => itemId);
+    onClickItem(() => item);
   }
   return (
     <Wrapper onClick={handleDrawerClick}>

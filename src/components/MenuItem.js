@@ -33,7 +33,7 @@ function MenuItem({ item, onClick }) {
   }
 
   return (
-    <ItemWrapper onClick={e => onClick(e, item.id)}>
+    <ItemWrapper onClick={e => onClick(e, item)}>
       <h4>{item.name}</h4>
       { item.description.length > 0 && <h5 style={{ color: 'gray', fontWeight: 'lighter', margin: '5px auto' }}>{item.description}</h5> }
       { renderPrice() }
