@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 
-function ModalFooter({ handleClickCancelBtn, handleClickConfirmBtn, cancelBtnTitle, confirmBtnTitle }) {
+function ModalFooter({ handleClickCancelBtn, handleClickConfirmBtn, cancelBtnTitle, confirmBtnTitle, options }) {
   const defaultOptions = {
     width: '100%', 
     height: '100%', 
     borderRadius: '5px', 
-    textAlign: 'center', 
+    textAlign: 'center',
+    ...options,
   }
 
   return (
