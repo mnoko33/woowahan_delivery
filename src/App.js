@@ -6,6 +6,7 @@ import RestaurantListPage from './components/restaurantList/RestaurantList';
 import DetailPage from './components/detail/Detail';
 import NotFoundPage from './components/notFound/NotFound';
 import Cart from './components/cart/Cart';
+import UserConfirm from './components/common/UserConfirm';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route component={NotFoundPage} />
       </Switch>
       <Cart />
+      <UserConfirm />
     </div>
   );
 }
