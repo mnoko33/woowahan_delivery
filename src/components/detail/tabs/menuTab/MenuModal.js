@@ -3,20 +3,40 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Modal from '../../../common/Modal';
 import ModalFooter from '../../../common/ModalFooter';
-import { addItem } from '../../../../modules/cart';
+import { hideUserConfirm } from '../../../../modules/userConfirm';
+import { addItem, resetCart, setCartRestaurantInfo } from '../../../../modules/cart';
+import { showUserConfirm } from '../../../../modules/userConfirm';
 import { commaizeNumber } from '../../../../utils/commaizeNumber';
 import CounterController from '../../../common/CounterController';
 
-function MenuModal({ selectedItem, setSelectedItem, addItem }) {
+function MenuModal({ selectedItem, setSelectedItem, resetCart, addItem, restaurantInfo, cartRestaurantInfo, setCartRestaurantInfo, showUserConfirm, hideUserConfirm }) {
   const [cnt, setCnt] = useState(1);
-
+  
   const handleClickCancelBtn = () => {
     setSelectedItem(null);
   }
 
-  const handleClickConfirmBtn = () => {
-    addItem({ ...selectedItem, cnt });
-    setSelectedItem(null)
+  const handleClickConfirmBtn = async () => {
+    if (cartRestaurantInfo && restaurantInfo.id !== cartRestaurantInfo.id) {
+      showUserConfirm({
+        mainMessage: '장바구니에는 같은 가게의 메뉴만 담을 수 있습니다.',
+        description: '선택하신 메뉴를 장바구니에 담을 경우 이전에 담은 메뉴가 삭제됩니다.',
+        handleClickConfirmBtn: () => {
+          resetCart();
+          setCartRestaurantInfo(restaurantInfo);
+          addItem({ ...selectedItem, cnt });
+          setSelectedItem(null)
+          hideUserConfirm();
+        },
+        handleClickCancelBtn: () => {
+          hideUserConfirm();
+        },
+      });
+    } else {
+      setCartRestaurantInfo(restaurantInfo);
+      addItem({ ...selectedItem, cnt });
+      setSelectedItem(null)
+    }
   }
 
   return (
@@ -56,8 +76,11 @@ function MenuModal({ selectedItem, setSelectedItem, addItem }) {
 }
 
 export default connect(
-  null,
-  { addItem }
+  state => ({
+    restaurantInfo: state.restaurantReducer.restaurantInfo,
+    cartRestaurantInfo: state.cartReducer.restaurantInfo
+  }),
+  { addItem, resetCart, setCartRestaurantInfo, showUserConfirm, hideUserConfirm }
 )(MenuModal);
 
 const BodyWrapper = styled.div`
