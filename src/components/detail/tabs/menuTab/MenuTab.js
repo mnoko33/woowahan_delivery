@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { getMenuList } from '../../../../modules/restaurant';
 import MenuDrawer from './MenuDrawer';
 import MenuModal from './MenuModal';
 
 function MenuTab({ menuList, getMenuList, restaurantInfo }) {
-  const [selectedItem, setSelectedItem] = React.useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   React.useEffect(() => {
     getMenuList(restaurantInfo.id);
