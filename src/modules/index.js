@@ -4,6 +4,7 @@ import addressReducer from './address';
 import adReducer from './ad';
 import restaurantReducer from './restaurant';
 import cartReducer from './cart';
+import userConfirmReducer from './userConfirm';
 
 const rootReducer = combineReducers({
   categoryReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   adReducer,
   restaurantReducer,
   cartReducer,
+  userConfirmReducer
 })
 
 export default rootReducer;
