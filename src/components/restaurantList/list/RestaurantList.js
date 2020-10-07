@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import RestaurantCard from './RestaurantCard';
 import { connect } from 'react-redux';
-import { getRestaurantList } from '../../../modules/restaurant'
+import { getRestaurantList, setRestaurantInfo } from '../../../modules/restaurant'
 import { useHistory } from 'react-router-dom';
 
 function RestaurantList(props) {
@@ -12,18 +12,19 @@ function RestaurantList(props) {
     getRestaurantList(categoryId, nextPage);
   }, [categoryId])
 
-  const handleCardClick = (id) => {
-    history.push(`/restaurants/${id}`)
+  const handleCardClick = (restaurant) => {
+    setRestaurantInfo(restaurant)
+    history.push(`/restaurants/${restaurant.id}`)
   }
 
   return (
     <Fragment>
       <Wrapper>
-        {restaurantList.map((restaurant, idx) => 
+        {restaurantList.map(restaurant => 
           <RestaurantCard 
-            key={idx} 
+            key={restaurant.id} 
             restaurant={restaurant}
-            onClick={(id) => handleCardClick(id)}
+            onClick={() => handleCardClick(restaurant)}
           />  
         )}
       </Wrapper>
