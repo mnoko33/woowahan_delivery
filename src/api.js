@@ -21,11 +21,11 @@ const api = {
       })
   },
   getRestaurantInfo: async (restaurantId) => {
-    return dummyRestaurantInfo;
+    return { ...dummyRestaurantInfo, id: restaurantId };
   },
   updateRestaurantInfo: async ({ id, data }) => {
     const { isPicked } = data;
-    const x = { ...dummyRestaurantInfo, ...data }
+    const x = { ...dummyRestaurantInfo, ...data, id }
     if (!isPicked) {
       x['pickCnt'] = x['pickCnt'] - 1;
     }
