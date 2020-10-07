@@ -32,12 +32,30 @@ function ItemCard({ item, updateItem, removeItem }) {
   )
 }
 
+function ItemCartList({ items }) {
+  return (
+    <>
+      { items.map(item => 
+              <ItemCard
+                key={item.id}
+                item={item}
+                updateItem={({ itemId, itemCnt }) => updateItem({ itemId, itemCnt })}
+                removeItem={id => removeItem(id)}
+              />)
+            }
+    </>
+  )
+}
+
+function EmptyCartList() {
+  return (
+    <EmptyCartListWrapper>
+      <EmptyCartListImg src={require('../assets/images/emptyCart.png')} alt="emptyCartImg" />
+    </EmptyCartListWrapper>
+  )
+}
+
 function CartModal({ visible, setVisible, items, removeItem, updateItem }) {
-  useEffect(() => {
-    return () => {
-      setVisible(false);
-    }
-  })
   const closeModal = () => setVisible(false);
   return (
     <Modal 
@@ -48,13 +66,10 @@ function CartModal({ visible, setVisible, items, removeItem, updateItem }) {
         <BodyWrapper>
           <strong>가게이름</strong>
           <ItemCardListWrapper>
-            { items.map(item => 
-              <ItemCard
-                key={item.id}
-                item={item}
-                updateItem={({ itemId, itemCnt }) => updateItem({ itemId, itemCnt })}
-                removeItem={id => removeItem(id)}
-              />) 
+            { 
+              items.length > 0 
+                ? <ItemCartList items={items} /> 
+                : <EmptyCartList /> 
             }
           </ItemCardListWrapper>
           <RowWrapper>
@@ -109,4 +124,14 @@ const RowWrapper = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+`;
+
+const EmptyCartListWrapper = styled.div`
+  width: 100%;
+  height: 400px;
+`;
+
+const EmptyCartListImg = styled.img`
+  width: 100%;
+  height: 390px;
 `;
