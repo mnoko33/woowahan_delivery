@@ -1,11 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { addItem } from '../../../../modules/cart';
 
-function MenuDrawer({ menu, onClickItem, addItem }) {
+function MenuDrawer({ menu, onClickItem }) {
   const [isOpen, setIsOpen] = React.useState(true);
   const handleDrawerClick = () => {
     setIsOpen(isOpen => !isOpen)
@@ -34,10 +32,7 @@ function MenuDrawer({ menu, onClickItem, addItem }) {
   )
 }
 
-export default connect(
-  null,
-  { addItem }
-)(MenuDrawer);
+export default MenuDrawer;
 
 const Wrapper = styled.div`
   position: relative;
