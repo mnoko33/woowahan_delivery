@@ -9,7 +9,7 @@ import { commaizeNumber } from '../../../utils/commaizeNumber';
 import { calculateTotalPrice } from '../../../utils/calculateTotalPrice';
 import { removeItem, updateItem } from '../../../modules/cart';
 
-function CartModal({ visible, setVisible, items, removeItem, updateItem }) {
+function CartModal({ visible, setVisible, items, removeItem, updateItem, restaurantInfo }) {
   const closeModal = () => setVisible(false);
   return (
     <Modal 
@@ -18,7 +18,7 @@ function CartModal({ visible, setVisible, items, removeItem, updateItem }) {
       title='장바구니'
       body={
         <BodyWrapper>
-          <strong>가게이름</strong>
+          <strong>{restaurantInfo.name}</strong>
           <ItemCardListWrapper>
             { 
               items.length > 0 
@@ -55,6 +55,7 @@ function CartModal({ visible, setVisible, items, removeItem, updateItem }) {
 export default connect(
   state => ({
     items: state.cartReducer.items,
+    restaurantInfo: state.cartReducer.restaurantInfo,
   }),
   { removeItem, updateItem }
 )(CartModal);
